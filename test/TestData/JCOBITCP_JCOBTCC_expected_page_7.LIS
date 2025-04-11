@@ -1,0 +1,47 @@
+JCOBTCC_BIT_Test_Controller                                     28-Apr-2017 14:57:43    XD Ada V1.2A-33                     Page  12
+01              Ada Compilation Statistics                      28-Apr-2017 14:54:46    JCOBITCP_JCOBTCC.ADA;1                   (1)
+
+COMMAND QUALIFIERS
+
+  XDADA [PADA106.SRC.CL1.SOURCE]JCOBITCP_JCOBTCC.ADA/OPTIMIZE=(NONE,INLINE:NORMAL)/NOCHECK/DEBUG/LIB=[.-.OUT.LIBRARY.ADALIB]/LOAD/LIST=[PADA106.SRC.CL1.OUT.LISTING]/MACHINE_CODE=(SYMBOLIC:MAXIMAL)/WARNINGS=(WEAK:NONE)/ERROR_LIMIT=60
+
+
+QUALIFIERS USED
+        /NOANALYSIS_DATA/NOCHECK/COPY_SOURCE/DEBUG=ALL/ERROR_LIMIT=60/LIST/MACHINE=(SYMBOLIC=MAXIMAL)
+        /NODIAGNOSTICS/LIBRARY=[.-.OUT.LIBRARY.ADALIB]
+        /LOAD=REPLACE/NOTE_SOURCE/OPTIMIZE=(NONE,INLINE=NORMAL,SHARE=NONE,MOTION=NONE)/SHOW=PORTABILITY/NOSYNTAX_ONLY
+        /WARNINGS=(NOCOMPILATION_NOTES,STATUS=LIST,SUPPLEMENTAL=ALL,WARNINGS=ALL,NOWEAK_WARNINGS)
+
+
+COMPILER INTERNAL TIMING
+
+	Phase                         CPU     Elapsed    Page     I/O
+	                            seconds   seconds   faults   count
+  Initialization                      0.02      0.04      725      52
+  Parser                              0.02      0.02      517       1
+  Static semantics                    0.02      0.04      878      10
+  IL generation                       0.02      0.02     1179      10
+  Code generation                     0.05      0.06     1561       3
+      Expand                          0.00      0.00      106       0
+      Optimize                        0.00      0.00       19       0
+      Flattener                       0.02      0.02      395       0
+      Register Allocation             0.01      0.02      630       3
+      Final Assembly                  0.02      0.02      493       3
+  Listing generation                  0.02      0.02       88       9
+  Compilation library                 0.13      0.16     2836     134
+  Collect analysis data               0.00      0.00        5       0
+  Compiler totals                     0.28      0.36     7616     216
+
+
+COMPILATION STATISTICS
+
+  Weak warnings:	     0
+  Warnings:		     0
+  Errors:		     0
+
+  Peak working set:	  2413
+  Virtual pages used:	 14007
+  Virtual pages free:	******
+  CPU Time:		 00:00:00.28	(48857 Lines/Minute)
+  Elapsed Time:		 00:00:00.36
+  Compilation Complete

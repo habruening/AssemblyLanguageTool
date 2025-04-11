@@ -1,0 +1,13 @@
+Line 91
+     003C  7000                        MOVEQ.L     #0,D0
+     003E  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+     0042  7E06                        MOVEQ.L     #6,D7
+     0044  B087                        CMP.L       D7,D0
+     0046  6C00 0138                   BGE.W       ELSE_9
+
+Line 92
+                                   RFE_9:
+     004A  7000                        MOVEQ.L     #0,D0
+     004C  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+     0050  7E04                        MOVEQ.L     #4,D7
+     0052  B087                        CMP.L       D7,D0

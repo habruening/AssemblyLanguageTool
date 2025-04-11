@@ -1,12 +1,8 @@
 (ns misc.mstring-test
   (:refer-clojure :exclude [str subs count])
-  (:require [midje.sweet :refer :all]
-            [clojure.test :refer :all]
+  (:require [clojure.test :refer :all]
             [misc.testboost :refer :all]
-            [misc.mstring :as mstr :refer [JString TString VString MString str ->JString add-context subs split-at]]))
-
-
-;;; The standard dispatcher for all string types
+            [misc.mstring :as mstr :refer [JString TString VString MString ->JString add-context]]))
 
 (testing "`dispatch-in-first-arg`"
   (protocol
@@ -20,8 +16,6 @@
    (isa? (mstr/dispatch-in-first-arg {:super 0 :start 0 :end 0}) TString) => true
    (isa? (mstr/dispatch-in-first-arg {:parts 0}) VString) => true))
 
-;;; the operator clojure.core/str reimplemented
-
 (testing "`dispatch-for-str`"
   (protocol
    (mstr/dispatch-for-str "") =pred=> #(isa? % JString)
@@ -32,37 +26,34 @@
 
 (testing "`str` with regular Clojure data"
   (protocol
-   (str false) =fn=> ->JString "false"
-   (str 23) =fn=> ->JString "23"
-   (str {:a "A"}) =fn=> ->JString "{:a \"A\"}"
-   (str 'a) =fn=> ->JString "a"
-   (str :a) =fn=> ->JString ":a"
-   (str ['a]) =fn=> ->JString "[a]"))
+   (mstr/str false) =fn=> ->JString "false"
+   (mstr/str 23) =fn=> ->JString "23"
+   (mstr/str {:a "A"}) =fn=> ->JString "{:a \"A\"}"
+   (mstr/str 'a) =fn=> ->JString "a"
+   (mstr/str :a) =fn=> ->JString ":a"
+   (mstr/str ['a]) =fn=> ->JString "[a]"))
 
 (testing "`str` with Java strings"
-  (protocol (str "") => ""
-            (str "A") => "A"))
+  (protocol (mstr/str "") => ""
+            (mstr/str "A") => "A"))
 
 (testing "`str` with MStrings"
   (protocol
-   (str (mstr/add-context "A")) => (mstr/add-context "A")))
+   (mstr/str (mstr/add-context "A")) => (mstr/add-context "A")))
 
 (testing "`str` with no args"
   (protocol
-   (str) => ""))
+   (mstr/str) => ""))
 
 (testing "`str` with multiple arguments"
   (protocol
-   (str "a" 1 (mstr/add-context "b") (str (mstr/add-context "c") "d"))
+   (mstr/str "a" 1 (mstr/add-context "b") (mstr/str (mstr/add-context "c") "d"))
    =fn=> ->JString "a1bcd"))
-
-;;; Strings with context (e.g. line numbers).
 
 (testing "`add-context with Java strings"
   (protocol
    (add-context "X" {:line-number 12}) =fn=> ->JString "X"
    (add-context "X" {:line-number 12}) =fn=> :line-number 12))
-
 
 (testing "The method `add-context` can be abused to generate a TString."
   (protocol
@@ -76,7 +67,7 @@
      (s :line-number) => 12)))
 
 (testing "`add-context` for VStrings"
-  (let [s (add-context (str "X" "Y") {:line-number 12})]
+  (let [s (add-context (mstr/str "X" "Y") {:line-number 12})]
     (protocol
      (->JString s) => "XY"
      (s :line-number) => 12)))
@@ -95,22 +86,20 @@
 
 (testing "`->JString` with VStrings (together with `str`))"
   (protocol
-   (-> (str (add-context "A") (add-context "B") (add-context "C"))
+   (-> (mstr/str (add-context "A") (add-context "B") (add-context "C"))
        ->JString) => "ABC"
-   (-> (str (add-context "A") "B")
+   (-> (mstr/str (add-context "A") "B")
        ->JString) => "AB"
-   (-> (str "A" (add-context "B"))
+   (-> (mstr/str "A" (add-context "B"))
        ->JString) => "AB"
-   (-> (str (add-context "A") "")
+   (-> (mstr/str (add-context "A") "")
        ->JString) => "A"
-   (-> (str "A" (add-context ""))
+   (-> (mstr/str "A" (add-context ""))
        ->JString) => "A"
-   (-> (str (add-context "") "A")
+   (-> (mstr/str (add-context "") "A")
        ->JString) => "A"
-   (-> (str "" (add-context "A"))
+   (-> (mstr/str "" (add-context "A"))
        ->JString) => "A"))
-
-;;; the function clojure.string/index-of reimplemented
 
 (testing "`index-of` with Java strings"
   (protocol
@@ -119,10 +108,8 @@
 
 (testing "`index-of` with MStrings"
   (protocol
-   (mstr/index-of (str "AB" "CBD") "B") => 1
-   (mstr/index-of (str "AB" "CBD") "B" 2) => 3))
-
-;;; searching multiple characters
+   (mstr/index-of (mstr/str "AB" "CBD") "B") => 1
+   (mstr/index-of (mstr/str "AB" "CBD") "B" 2) => 3))
 
 (testing "`first-index-of`"
   (testing "the general operation"
@@ -166,8 +153,6 @@
      (mstr/first-index-of "x" []) => nil
      (mstr/first-index-of "x" [""]) => ["" 0])))
 
-;;; the function clojure.core/count reimplemented
-
 (testing "`count` with regular Clojre data"
   (protocol
    (mstr/count [1 2 3]) => 3
@@ -185,69 +170,65 @@
 
 (testing "`count` with VStrings"
   (protocol
-   (mstr/count (str "AB" "C")) => 3
-   (mstr/count (str (add-context "ABC") "D")) => 4))
-
-;;; the function clojure.core/subs reimplemented
+   (mstr/count (mstr/str "AB" "C")) => 3
+   (mstr/count (mstr/str (add-context "ABC") "D")) => 4))
 
 (testing "`subs` with Java strings"
   (protocol
-   (subs "ABCDEFG" 2) =fn=> ->JString "CDEFG"
-   (subs "ABCDEFG" 2) =fn=> ->JString "CDEFG"
-   (subs "ABCDEFG" 2 4) =fn=> ->JString "CD"
-   (->JString (subs "ABCDEFG" 10)) =throws=> java.lang.StringIndexOutOfBoundsException))
+   (mstr/subs "ABCDEFG" 2) =fn=> ->JString "CDEFG"
+   (mstr/subs "ABCDEFG" 2) =fn=> ->JString "CDEFG"
+   (mstr/subs "ABCDEFG" 2 4) =fn=> ->JString "CD"
+   (->JString (mstr/subs "ABCDEFG" 10)) =throws=> java.lang.StringIndexOutOfBoundsException))
 
 (testing "`subs` with TStrings"
   (protocol
-   (subs (add-context "ABCDEFG") 2) =fn=> ->JString "CDEFG"
-   (subs (add-context "ABCDEFG") 2 4) =fn=> ->JString "CD"
-   (subs (add-context "ABCDEFG" {:line 17}) 2) =fn=> :line 17
-   (subs (add-context "ABCDEFG" {:line 17}) 2) =fn=> ->JString "CDEFG"
-   (->JString (subs (add-context "ABCDEFG") 10)) =throws=> java.lang.StringIndexOutOfBoundsException))
+   (mstr/subs (add-context "ABCDEFG") 2) =fn=> ->JString "CDEFG"
+   (mstr/subs (add-context "ABCDEFG") 2 4) =fn=> ->JString "CD"
+   (mstr/subs (add-context "ABCDEFG" {:line 17}) 2) =fn=> :line 17
+   (mstr/subs (add-context "ABCDEFG" {:line 17}) 2) =fn=> ->JString "CDEFG"
+   (->JString (mstr/subs (add-context "ABCDEFG") 10)) =throws=> java.lang.StringIndexOutOfBoundsException))
 
 (testing "`subs` with VStrings"
   (protocol
-   (subs (str) 0 0) =fn=> ->JString ""
-   (subs (str "AB") 0 0) =fn=> ->JString ""
-   (subs (str "AB" "CD") 0 0) =fn=> ->JString ""
-   (subs (str "EF") 1 1) =fn=> ->JString ""
-   (subs (str "EF") 2 2) =fn=> ->JString ""
-   (subs (str "AB" "CD" "EF") 1 5) =fn=> ->JString "BCDE"
-   (subs (str "AB" "CD" "EF") 0 6) =fn=> ->JString "ABCDEF"
-   (subs (str "AB" "CD" "EF") 3) =fn=> ->JString "DEF"))
-
-;;; the function clojure.core/split-at reimplemented
+   (mstr/subs (mstr/str) 0 0) =fn=> ->JString ""
+   (mstr/subs (mstr/str "AB") 0 0) =fn=> ->JString ""
+   (mstr/subs (mstr/str "AB" "CD") 0 0) =fn=> ->JString ""
+   (mstr/subs (mstr/str "EF") 1 1) =fn=> ->JString ""
+   (mstr/subs (mstr/str "EF") 2 2) =fn=> ->JString ""
+   (mstr/subs (mstr/str "AB" "CD" "EF") 1 5) =fn=> ->JString "BCDE"
+   (mstr/subs (mstr/str "AB" "CD" "EF") 0 6) =fn=> ->JString "ABCDEF"
+   (mstr/subs (mstr/str "AB" "CD" "EF") 3) =fn=> ->JString "DEF"))
 
 (testing "`split-at` with Clojure collections"
   (protocol
-   (split-at 4 [1 2 3 4 5 6]) => [[1 2 3 4] [5 6]]))
+   (mstr/split-at 4 [1 2 3 4 5 6]) => [[1 2 3 4] [5 6]]))
 
 (def all-as-jstr #(map ->JString %))
 
 (testing "`split-at` with Java strings"
   (protocol
-   (split-at 0 "") =fn=> all-as-jstr ["" ""]
-   (split-at 0 "A") =fn=> all-as-jstr ["" "A"]
-   (split-at 1 "A") =fn=> all-as-jstr ["A" ""]
-   (split-at 0 "ABCDEF") =fn=> all-as-jstr ["" "ABCDEF"]
-   (split-at 2 "ABCDEF") =fn=> all-as-jstr ["AB" "CDEF"]
-   (split-at 6 "ABCDEF") =fn=> all-as-jstr ["ABCDEF" ""]
-   (split-at 2 "ABCDEF") ->> (map :super) => ["ABCDEF" "ABCDEF"]))
+   (mstr/split-at 0 "") =fn=> all-as-jstr ["" ""]
+   (mstr/split-at 0 "A") =fn=> all-as-jstr ["" "A"]
+   (mstr/split-at 1 "A") =fn=> all-as-jstr ["A" ""]
+   (mstr/split-at 0 "ABCDEF") =fn=> all-as-jstr ["" "ABCDEF"]
+   (mstr/split-at 2 "ABCDEF") =fn=> all-as-jstr ["AB" "CDEF"]
+   (mstr/split-at 6 "ABCDEF") =fn=> all-as-jstr ["ABCDEF" ""]
+   (mstr/split-at 2 "ABCDEF") ->> (map :super) => ["ABCDEF" "ABCDEF"]))
 
 (testing "`split-at` with TStrings"
   (protocol
-   (split-at 0 (add-context "")) =fn=> all-as-jstr ["" ""]
-   (split-at 0 (add-context "A")) =fn=> all-as-jstr ["" "A"]
-   (split-at 1 (add-context "A")) =fn=> all-as-jstr ["A" ""]
-   (split-at 0 (add-context "ABCDEF")) =fn=> all-as-jstr ["" "ABCDEF"]
-   (split-at 2 (add-context "ABCDEF")) =fn=> all-as-jstr ["AB" "CDEF"]
-   (split-at 6 (add-context "ABCDEF")) =fn=> all-as-jstr ["ABCDEF" ""]
-   (split-at 2 (add-context "ABCDEF")) ->> (map :super) => ["ABCDEF" "ABCDEF"]))
+   (mstr/split-at 0 (add-context "")) =fn=> all-as-jstr ["" ""]
+   (mstr/split-at 0 (add-context "A")) =fn=> all-as-jstr ["" "A"]
+   (mstr/split-at 1 (add-context "A")) =fn=> all-as-jstr ["A" ""]
+   (mstr/split-at 0 (add-context "ABCDEF")) =fn=> all-as-jstr ["" "ABCDEF"]
+   (mstr/split-at 2 (add-context "ABCDEF")) =fn=> all-as-jstr ["AB" "CDEF"]
+   (mstr/split-at 6 (add-context "ABCDEF")) =fn=> all-as-jstr ["ABCDEF" ""]
+   (mstr/split-at 2 (add-context "ABCDEF")) ->> (map :super) => ["ABCDEF" "ABCDEF"]))
 
 (testing "`split-strings-at` with systematic test cases"
   (let [take-result (fn [result]
-                      [(->JString (apply str (first result)))
-                       (->JString (apply str (second result)))])]
+                      [(->JString (apply mstr/str (first result)))
+                       (->JString (apply mstr/str (second result)))])]
     (protocol
      (mstr/split-strings-at 0 []) =fn=> take-result ["" ""]
      (mstr/split-strings-at 0 ["ABC"]) =fn=> take-result ["" "ABC"]
@@ -266,9 +247,9 @@
 
 (testing "`split-at` with VStrings"
   (protocol
-   (split-at 3 (str "AB" "CD" "EF")) =fn=> all-as-jstr ["ABC" "DEF"]
-   (split-at 0 (str "AB" "CD" "EF")) =fn=> all-as-jstr ["" "ABCDEF"]
-   (split-at 6 (str "AB" "CD" "EF")) =fn=> all-as-jstr ["ABCDEF" ""]))
+   (mstr/split-at 3 (mstr/str "AB" "CD" "EF")) =fn=> all-as-jstr ["ABC" "DEF"]
+   (mstr/split-at 0 (mstr/str "AB" "CD" "EF")) =fn=> all-as-jstr ["" "ABCDEF"]
+   (mstr/split-at 6 (mstr/str "AB" "CD" "EF")) =fn=> all-as-jstr ["ABCDEF" ""]))
 
 (testing "`split-at-any-of`"
   (testing "the general operation"
@@ -293,14 +274,14 @@
   (testing "with other MString types"
     (protocol
      (mstr/split-at-any-of (add-context "abcdefgh") ["c" "f"]) =fn=> all-as-jstr ["ab" "de" "gh"]
-     (mstr/split-at-any-of (str "abcd" "efgh") ["c" "f"]) =fn=> all-as-jstr ["ab" "de" "gh"])))
+     (mstr/split-at-any-of (mstr/str "abcd" "efgh") ["c" "f"]) =fn=> all-as-jstr ["ab" "de" "gh"])))
 
 (testing "`split-pages`"
   (testing "with a real world example"
     (protocol
      (mstr/split-pages "page1\f\r\npage2\f\n\rpage3\f\npage4\f\rpage5\fpage6")
      ->> (map (juxt :page-no ->JString))
-     => [[0 "page1"] [1 "page2"] [2 "page3"] [3 "page4"] [4 "page5"] [5 "page6"]]))
+     => [[0 "page1"] [1 "page2"] [2 "\rpage3"] [3 "page4"] [4 "page5"] [5 "page6"]]))
   (testing "with simple test cases"
     (protocol
      (mstr/split-pages "x") =fn=> all-as-jstr ["x"]
@@ -312,14 +293,14 @@
      (mstr/split-pages "x\f\ry") =fn=> all-as-jstr ["x" "y"]
      (mstr/split-pages "x\f\ny") =fn=> all-as-jstr ["x" "y"]
      (mstr/split-pages "x\f\r\ny") =fn=> all-as-jstr ["x" "y"]
-     (mstr/split-pages "x\f\n\ry") =fn=> all-as-jstr ["x" "y"]))
+     (mstr/split-pages "x\f\n\ry") =fn=> all-as-jstr ["x" "\ry"]))
   (testing "with test cases for all sorts of page breaks"
     (protocol
      (mstr/split-pages "x\fy") =fn=> all-as-jstr ["x" "y"]
      (mstr/split-pages "x\f\ry") =fn=> all-as-jstr ["x" "y"]
      (mstr/split-pages "x\f\ny") =fn=> all-as-jstr ["x" "y"]
      (mstr/split-pages "x\f\r\ny") =fn=> all-as-jstr ["x" "y"]
-     (mstr/split-pages "x\f\n\ry") =fn=> all-as-jstr ["x" "y"]))
+     (mstr/split-pages "x\f\n\ry") =fn=> all-as-jstr ["x" "\ry"]))
   (testing "with test cases that confuse with empty pages"
     (protocol
      (mstr/split-pages "") =fn=> all-as-jstr [""]
@@ -371,3 +352,139 @@
      (mstr/split-lines "\n\n\r") =fn=> all-as-jstr ["" "" "" ""]
      (mstr/split-lines "\r\r\n") =fn=> all-as-jstr ["" "" ""]
      (mstr/split-lines "\r\n\r") =fn=> all-as-jstr ["" "" ""])))
+
+(testing "testing `split-pages-and-lines`"
+  (testing "with a real world example"
+    (let [example (mstr/split-pages-and-lines "a\nb\f\nc")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2]
+       example ->> (map :page-no) => [0 0 1]
+       example ->> (map ->JString) => ["a" "b" "c"])))
+  (testing "with some exotic situations"
+    (let [example (mstr/split-pages-and-lines "a\f\n\rb")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2]
+       example ->> (map :page-no) => [0 1 1]
+       example ->> (map ->JString) => ["a" "" "b"]))
+    (let [example (mstr/split-pages-and-lines "\f\n\na\nb\f\nc")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2 3 4]
+       example ->> (map :page-no) => [0 1 1 1 2]
+       example ->> (map ->JString) => ["" "" "a" "b" "c"]))
+    (let [example (mstr/split-pages-and-lines "\na\nb\f\nc")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2 3]
+       example ->> (map :page-no) => [0 0 0 1]
+       example ->> (map ->JString) => ["" "a" "b" "c"]))
+    (let [example (mstr/split-pages-and-lines "a\n\nb\f\nc")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2 3]
+       example ->> (map :page-no) => [0 0 0 1]
+       example ->> (map ->JString) => ["a" "" "b" "c"]))
+    (let [example (mstr/split-pages-and-lines "a\nb\f\nc\n")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2 3]
+       example ->> (map :page-no) => [0 0 1 1]
+       example ->> (map ->JString) => ["a" "b" "c" ""]))
+    (let [example (mstr/split-pages-and-lines "a\nb\f\nc\f\n\n")]
+      (protocol
+       example ->> (map :line-no) => [0 1 2 3 4]
+       example ->> (map :page-no) => [0 0 1 2 2]
+       example ->> (map ->JString) => ["a" "b" "c" "" ""]))))
+
+
+(testing "acceptance tests for `split-lines`"
+  (testing "with artificial example"
+    (protocol
+     (mstr/split-pages-and-lines (slurp "test/TestData/LineAndPageBreaks.txt"))
+     ->> (map ->JString) (map #(clojure.core/str (inc %1) ": " %2) (range))
+     => (clojure.string/split-lines (slurp "test/TestData/LineAndPageBreaks_expected.txt"))))
+  (testing "with real example"
+    (let [pages (->> "test/TestData/JCOBITCP_JCOBTCC.LIS"
+                     slurp
+                     mstr/split-pages-and-lines
+                     (group-by :page-no)
+                     vals
+                     (mapv all-as-jstr))]
+      (protocol
+       (nth pages 0) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_1.LIS") #"\r?\n" -1)
+       (nth pages 1) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_2.LIS") #"\r?\n" -1)
+       (nth pages 2) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_3.LIS") #"\r?\n" -1)
+       (nth pages 3) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_4.LIS") #"\r?\n" -1)
+       (nth pages 4) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_5.LIS") #"\r?\n" -1)
+       (nth pages 5) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_6.LIS") #"\r?\n" -1)
+       (nth pages 6) => (clojure.string/split (slurp "test/TestData/JCOBITCP_JCOBTCC_expected_page_7.LIS") #"\r?\n" -1)))))
+
+(testing "`empty?`"
+  (protocol
+   (mstr/empty? nil) => true
+   (mstr/empty? []) => true
+   (mstr/empty? [1]) => false
+   (mstr/empty? "") => true
+   (mstr/empty? " ") => false
+   (mstr/empty? "x") => false
+   (mstr/empty? (add-context "")) => true
+   (mstr/empty? (add-context " ")) => false
+   (mstr/empty? (add-context "X")) => false
+   (mstr/empty? (mstr/str "" "")) => true
+   (mstr/empty? (mstr/str "X" "")) => false
+   (mstr/empty? (mstr/str "X" "Y")) => false
+   (mstr/empty? (mstr/str "" "Y")) => false
+   (mstr/empty? (mstr/str (add-context "") (add-context ""))) => true
+   (mstr/empty? (mstr/str (add-context "X") (add-context ""))) => false
+   (mstr/empty? (mstr/str (add-context "X") (add-context "Y"))) => false
+   (mstr/empty? (mstr/str (add-context "") (add-context "Y"))) => false))
+
+(testing "`empty?`"
+  (protocol
+   (mstr/first nil) => nil
+   (mstr/first []) => nil
+   (mstr/first [1]) => 1
+   (mstr/first "") => nil
+   (mstr/first " ") => \space
+   (mstr/first "X") => \X
+   (mstr/first (add-context "")) => nil
+   (mstr/first (add-context " ")) => \space
+   (mstr/first (add-context "X")) => \X
+   (mstr/first (add-context "XY")) => \X
+   (mstr/first (mstr/str "" "")) => nil
+   (mstr/first (mstr/str "X" "")) => \X
+   (mstr/first (mstr/str "X" "Y")) => \X
+   (mstr/first (mstr/str "" "Y")) => \Y
+   (mstr/first (mstr/str (add-context "") (add-context ""))) => nil
+   (mstr/first (mstr/str (add-context "X") (add-context ""))) => \X
+   (mstr/first (mstr/str (add-context "X") (add-context "Y"))) => \X
+   (mstr/first (mstr/str (add-context "") (add-context "Y"))) => \Y))
+
+(testing "`last`"
+  (protocol
+   (mstr/last nil) => nil
+   (mstr/last []) => nil
+   (mstr/last [1]) => 1
+   (mstr/last "") => nil
+   (mstr/last " ") => \space
+   (mstr/last "X") => \X
+   (mstr/last (add-context "")) => nil 
+   (mstr/last (add-context " ")) => \space
+   (mstr/last (add-context "X")) => \X
+   (mstr/last (add-context "XY")) => \Y
+   (mstr/last (mstr/str "" "")) => nil
+   (mstr/last (mstr/str "X" "")) => \X
+   (mstr/last (mstr/str "X" "Y")) => \Y
+   (mstr/last (mstr/str "" "Y")) => \Y
+   (mstr/last (mstr/str (add-context "") (add-context ""))) => nil
+   (mstr/last (mstr/str (add-context "X") (add-context ""))) => \X
+   (mstr/last (mstr/str (add-context "X") (add-context "Y"))) => \Y
+   (mstr/last (mstr/str (add-context "") (add-context "Y"))) => \Y))
+
+(testing "`starts-with?"
+  (protocol
+   (mstr/starts-with? "ABCD" "A") => true
+   (mstr/starts-with? "ABCD" "B") => false
+   (mstr/starts-with? "ABCD" "") => true
+   (mstr/starts-with? (add-context "ABCD") "A") => true
+   (mstr/starts-with? (add-context "ABCD") "B") => false
+   (mstr/starts-with? (add-context "ABCD") "") => true
+   (mstr/starts-with? (mstr/str "AB" "CD") "A") => true
+   (mstr/starts-with? (mstr/str "AB" "CD") "B") => false
+   (mstr/starts-with? (mstr/str "AB" "CD") "") => true))

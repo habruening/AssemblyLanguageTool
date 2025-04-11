@@ -1,0 +1,22 @@
+JCOBTCC_BIT_Test_Controller                                     28-Apr-2017 14:57:43    XD Ada V1.2A-33                     Page   2
+01                                                              28-Apr-2017 14:54:46    JCOBITCP_JCOBTCC.ADA;1                   (1)
+
+   58 	--MODULE-RELATIONS-ARE
+   59 	--END-OF-MODULE-RELATIONS
+   60 	
+   61 	--EOMD
+   62 	                        
+   63 	--------------------------------------------------------------------
+   64 	--  Procedure to control the BIT operational logic
+   65 	--------------------------------------------------------------------
+   66 	
+   67 	separate (JCOBITCP_CL1_BIT_Control)
+   68 	
+   69 	--> Routine_Start JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_Test_Controller
+  220 	      
+  221 	    end if;
+  222 	
+  223 	  else -- not CL1_Test_In_Progress
+  224 	    GSYFWACP_FCC_System_Waits.Test_In_Progress := FALSE;
+  225 	  end if;
+  226 	

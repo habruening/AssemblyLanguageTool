@@ -1,5 +1,5 @@
 (ns misc.mstring
-  (:refer-clojure :exclude [str subs count split-at])
+  (:refer-clojure :exclude [str subs count split-at empty? first last])
   (:require [misc.cljboost :refer :all]))
 
 (def JString "Normal Java strings" ::JString)
@@ -10,8 +10,6 @@
 
 (derive TString MString)
 (derive VString MString)
-
-;;; The standard dispatcher for all string types
 
 (defn dispatch-in-first-arg [s & _]
   (cond (= (type s) java.lang.String)
@@ -25,15 +23,13 @@
              (s :parts))
         VString))
 
-;;; the operator clojure.core/str reimplemented
-
 (defn dispatch-for-str [& args]
-  (cond (empty? args)
+  (cond (clojure.core/empty? args)
         :no-args
         (< 1 (clojure.core/count args))
         :multiple-args
         :else
-        (dispatch-in-first-arg (first args))))
+        (dispatch-in-first-arg (clojure.core/first args))))
 
 (defmulti str dispatch-for-str)
 
@@ -51,8 +47,6 @@
 (defmethod str :multiple-args [& args]
   ; todo: remove empty strings
   {:parts (mapv str args)})
-
-;;; Strings with context (e.g. line numbers).
 
 ; Note: MStrings cannot be created. They occur. For example by
 ; creating substrings or by adding a context to a string with
@@ -97,15 +91,11 @@
 (defmethod ->JString VString [s]
   (clojure.string/join (map ->JString (s :parts))))
 
-;;; the function clojure.string/index-of reimplemented
-
 (defn index-of
   ([s value]
    (clojure.string/index-of (->JString s) value))
   ([s value from-index]
    (clojure.string/index-of (->JString s) value from-index)))
-
-;;; searching multiple characters
 
 (defn first-index-of [s values]
   (let [indices (->> values
@@ -114,8 +104,6 @@
                      (filter second))]
     (if (seq indices)
       (apply (as-max-function #(< (second %2) (second %1))) indices))))
-
-;;; the function clojure.core/count reimplemented
 
 (defmulti count dispatch-in-first-arg)
 
@@ -130,8 +118,6 @@
 
 (defmethod count VString [s]
   (reduce #(+ %1 (count %2)) 0 (s :parts)))
-
-;;; the function clojure.core/subs reimplemented
 
 (defmulti subs dispatch-in-first-arg)
 
@@ -149,6 +135,8 @@
 
 (def split-vstring-at-index) ; defined below
 
+(defmulti split-at #(dispatch-in-first-arg %2))
+
 (defmethod subs VString
   ([s start]
    (subs s start (count s)))
@@ -157,11 +145,7 @@
         (split-at start)
         second
         (split-at (- end start))
-        first)))
-
-;;; the function clojure.core/split-at reimplemented
-
-(defmulti split-at #(dispatch-in-first-arg %2))
+        clojure.core/first)))
 
 (defmethod split-at nil [n coll]
   (clojure.core/split-at n coll))
@@ -176,17 +160,17 @@
   (loop [left-s []
          right-s all-s
          cut n]
-    (cond (empty? right-s)
+    (cond (clojure.core/empty? right-s)
           [left-s []]
           (= cut 0)
           [left-s right-s]
-          (< cut (count (first right-s)))
-          [(conj left-s (subs (first right-s) 0 cut))
-           (assoc right-s 0 (subs (first right-s) cut))]
+          (< cut (count (clojure.core/first right-s)))
+          [(conj left-s (subs (clojure.core/first right-s) 0 cut))
+           (assoc right-s 0 (subs (clojure.core/first right-s) cut))]
           :else
-          (recur (conj left-s (first right-s))
+          (recur (conj left-s (clojure.core/first right-s))
                  (subvec right-s 1)
-                 (- cut (count (first right-s)))))))
+                 (- cut (count (clojure.core/first right-s)))))))
 
 (defmethod split-at VString [n s]
   (let [[left-s right-s] (split-strings-at n (s :parts))]
@@ -206,7 +190,7 @@
           number first-number]
      (let [[separator sep-index] (first-index-of remaining values)
            set-number (if numbering-key
-                        #(assoc % numbering-key number)
+                        #(add-context % {numbering-key number})
                         identity)]
        (if (not sep-index)
          (conj parts (set-number remaining))
@@ -218,20 +202,70 @@
          (split-at-any-of (str "abcd" "efgh") ["c" "f"]))
 
 (defn split-pages [s]
-  (split-at-any-of s ["\f\r\n" "\f\n\r" "\f\n" "\f\r" "\f"] :page-no))
+  (split-at-any-of s ["\f\r\n" #_"\f\n\r" "\f\n" "\f\r" "\f"] :page-no))
 
 (defn split-lines
   ([s] (split-lines s 0))
   ([s first-line-number]
    (split-at-any-of s ["\r\n" "\n" "\r"] :line-no first-line-number)))
 
+
 (defn split-pages-and-lines [s]
   (loop [lines []
          last-line-no -1
          remaining-pages (split-pages s)]
-    (if (empty? remaining-pages)
+    (if (clojure.core/empty? remaining-pages)
       lines
-      (let [lines-of-page (split-lines (first remaining-pages) (inc last-line-no))]
+      (let [lines-of-page (split-lines (clojure.core/first remaining-pages) (inc last-line-no))]
         (recur (into lines lines-of-page)
-               (-> lines-of-page last :line-no)
+               (-> lines-of-page clojure.core/last :line-no)
                (rest remaining-pages))))))
+
+(defmulti empty? dispatch-in-first-arg)
+
+(defmethod empty? nil [coll]
+  (clojure.core/empty? coll))
+
+(defmethod empty? JString [coll]
+  (clojure.core/empty? coll))
+
+(defmethod empty? MString [coll]
+  (= (coll :start) (coll :end)))
+
+(defmethod empty? VString [coll]
+  (every? empty? (coll :parts)))
+
+(defmulti first dispatch-in-first-arg)
+
+(defmethod first nil [coll]
+  (clojure.core/first coll))
+
+(defmethod first JString [coll]
+  (clojure.core/first coll))
+
+(defmethod first MString [coll]
+  (if (not (empty? coll))
+    (nth (coll :super) (coll :start))))
+
+(defmethod first VString [coll]
+  (if-let [first-non-empty (some #(if (not (empty? %)) %) (coll :parts))]
+    (first first-non-empty)))
+
+(defmulti last dispatch-in-first-arg)
+
+(defmethod last nil [coll]
+  (clojure.core/last coll))
+
+(defmethod last JString [coll]
+  (clojure.core/last coll))
+
+(defmethod last MString [coll]
+  (if (not (empty? coll))
+    (nth (coll :super) (dec (coll :end)))))
+
+(defmethod last VString [coll]
+  (if-let [first-non-empty (some #(if (not (empty? %)) %) (reverse (coll :parts)))]
+    (last first-non-empty)))
+
+(defn starts-with? [s substr]
+  (clojure.string/starts-with? (->JString s) (->JString substr)))

@@ -1,0 +1,44 @@
+JCOBTCC_BIT_Test_Controller                                     28-Apr-2017 14:57:43    XD Ada V1.2A-33                     Page   6
+01                                                              28-Apr-2017 14:54:46    JCOBITCP_JCOBTCC.ADA;1                   (1)
+
+
+RAMETER_TEMP27
+     007C  102E FFFF                   MOVE.B      -1(A6)..CPU_FAILURE$PARAMETER_TEMP27,D0
+     0080  4EB9 *0000000               JSR         ADA$GBIPROCP_PROC_MODULE_$.GBICPUC_IBIT_CPU__101.L
+     0086  1D40 FFFF                   MOVE.B      D0,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
+     008A  13C0 *0000000               MOVE.B      D0,LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
+     0090  6000 0296                   BRA.W       ENDIF_8
+                                   ELSE_13:
+
+
+Line 224
+     0340  4239 *0000000               CLR.B       ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.$DATA+4.L..ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.GSYWAI
+C_B010
+
+Line 227
+                                   JCOBTCC_BIT_Test_Controller$EXIT_LABEL39:
+     0346  4E5E                        UNLK        A6
+     0348  4E75                        RTS  
+
+  228 	--> Routine_End JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_Test_Controller
+
+
+Module segment and routine sizes :
+
+       Hexadecimal Decimal    Name
+       0000034A    842        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$CODE
+       000002BE    702        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$DEBUG
+       0000034A    842        JCOBTCC_BIT_TEST_CONTROLLER__301
+
+
+%ADAC-I-CL_ADDED, Procedure body JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER added to library 
+        DISK$EFA_GE3:[PADA106.SRC.CL1.OUT.LIBRARY.ADALIB]
+
+
+PORTABILITY SUMMARY
+
+	There are no uses of potentially nonportable constructs
+
+
+
+

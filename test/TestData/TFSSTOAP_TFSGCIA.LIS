@@ -1,0 +1,370 @@
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   1
+01                                                               8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+    1 	
+    2 	
+    3 	separate (TFSSTOAP_Store_Handler)
+    4 	
+    5 	--> ROUTINE_START TFSSTOAP_Store_Handler.TFSGCIA_Gen_of_CLAWS_Id
+    6 	procedure TFSGCIA_Gen_of_CLAWS_Id
+    7 	is
+    8 	
+    9 	  L_Inbd_Wing              : BOOLEAN;
+   10 	  R_Inbd_Wing              : BOOLEAN;
+   11 	
+   12 	begin
+   13 	
+   14 	  ------------------------------------------
+   15 	  -- A variables    6 items "or"
+   16 	  ------------------------------------------
+   17 	
+   18 	  TFSSTODP_Store_Handler.Bool_1 :=
+   19 	       TFSSTODP_Store_Handler.A1 = 1 
+   20 	                                        or
+   21 	       TFSSTODP_Store_Handler.A2 = 2
+   22 	                                        or
+   23 	       TFSSTODP_Store_Handler.A3 = 3
+   24 	                                        or
+   25 	       TFSSTODP_Store_Handler.A4 = 4
+   26 	                                        or
+   27 	       TFSSTODP_Store_Handler.A5 = 5
+   28 	                                        or
+   29 	       TFSSTODP_Store_Handler.A6 = 6    
+   30 	                                        or
+   31 	       TFSSTODP_Store_Handler.A7 = 7 
+   32 	                                        or
+   33 	       TFSSTODP_Store_Handler.A8 = 8
+   34 	                                        or
+   35 	       TFSSTODP_Store_Handler.A9 = 9
+   36 	                                        or
+   37 	       TFSSTODP_Store_Handler.A10 = 10
+   38 	                                        or
+   39 	       TFSSTODP_Store_Handler.A11 = 11
+   40 	                                        or
+   41 	       TFSSTODP_Store_Handler.A12 = 12
+   42 	                                        or
+   43 	       TFSSTODP_Store_Handler.A13 = 13
+   44 	                                        or
+   45 	       TFSSTODP_Store_Handler.A14 = 14;
+   46 	       
+   47 	  TFSSTODP_Store_Handler.Out_1 :=
+   48 	        TFSSTODP_Store_Handler.A4;
+   49 	        
+   50 	
+   51 	  ------------------------------------------
+   52 	  -- B variables     5 items "or"
+   53 	  ------------------------------------------
+   54 	  
+   55 	  TFSSTODP_Store_Handler.Bool_2 :=
+   56 	       TFSSTODP_Store_Handler.B1 = 1 
+   57 	                                        or
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   2
+01                                                               8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+   58 	       TFSSTODP_Store_Handler.A2 = 2
+   59 	                                        or
+   60 	       TFSSTODP_Store_Handler.A3 = 3
+   61 	                                        or
+   62 	       TFSSTODP_Store_Handler.A4 = 4
+   63 	                                        or
+   64 	       TFSSTODP_Store_Handler.B5 = 5
+   65 	                                        or
+   66 	       TFSSTODP_Store_Handler.A6 = 6 
+   67 	                                        or
+   68 	       TFSSTODP_Store_Handler.A7 = 7
+   69 	                                        or
+   70 	       TFSSTODP_Store_Handler.A8 = 8
+   71 	                                        or
+   72 	       TFSSTODP_Store_Handler.A9 = 9
+   73 	                                        or
+   74 	       TFSSTODP_Store_Handler.A10 = 10;
+   75 	       
+   76 	  TFSSTODP_Store_Handler.Out_2 :=
+   77 	        TFSSTODP_Store_Handler.A4;
+   78 	        
+   79 	  ------------------------------------------
+   80 	  -- C variables     4 items "or"
+   81 	  ------------------------------------------
+   82 	  
+   83 	  TFSSTODP_Store_Handler.Bool_3 :=
+   84 	       TFSSTODP_Store_Handler.C1 = 1 
+   85 	                                        or
+   86 	       TFSSTODP_Store_Handler.A2 = 2
+   87 	                                        or
+   88 	       TFSSTODP_Store_Handler.A3 = 3
+   89 	                                        or
+   90 	       TFSSTODP_Store_Handler.C4 = 4;
+   91 	       
+   92 	  TFSSTODP_Store_Handler.Out_3 :=
+   93 	        TFSSTODP_Store_Handler.C4;
+   94 	        
+   95 	  ------------------------------------------
+   96 	  -- D variables     3 items "or"
+   97 	  ------------------------------------------
+   98 	  
+   99 	  TFSSTODP_Store_Handler.Bool_4 :=
+  100 	       TFSSTODP_Store_Handler.D1 = 1 
+  101 	                                        or
+  102 	       TFSSTODP_Store_Handler.A2 = 2
+  103 	                                        or
+  104 	       TFSSTODP_Store_Handler.D3 = 3;
+  105 	       
+  106 	  TFSSTODP_Store_Handler.Out_4 :=
+  107 	        TFSSTODP_Store_Handler.D3;
+  108 	
+  109 	
+  110 	end TFSGCIA_Gen_of_CLAWS_Id;
+
+Line 6
+                                   TFSGCIA_GEN_OF_CLAWS_ID__3901:
+     0000  2F7C *0000000 0004          MOVE.L      #ADA$$RUN_TIME_SYSTEM_$.EH$_UNHANDLED,4(A7)
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   3
+01                                                               8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+     0008  4E56 FFFC                   LINK.W      A6,#-4
+                                   TFSGCIA_GEN_OF_CLAWS_ID__3901$SECONDARY:
+
+Line 18
+     000C  207C *0000000               MOVEA.L     #ADA$TFSSTODP_STORE_HANDLER_$.$DATA,A0
+     0012  7000                        MOVEQ.L     #0,D0
+     0014  1028 005E                   MOVE.B      94(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A13,D0
+     0018  0C40 000D                   CMPI.W      #13,D0
+     001C  6700 00A0                   BEQ.W       Escape_4
+     0020  7000                        MOVEQ.L     #0,D0
+     0022  1028 005C                   MOVE.B      92(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A12,D0
+     0026  0C40 000C                   CMPI.W      #12,D0
+     002A  6700 0092                   BEQ.W       Escape_4
+     002E  7000                        MOVEQ.L     #0,D0
+     0030  1028 005A                   MOVE.B      90(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A11,D0
+     0034  0C40 000B                   CMPI.W      #11,D0
+     0038  6700 0084                   BEQ.W       Escape_4
+     003C  7600                        MOVEQ.L     #0,D3
+     003E  1628 0058                   MOVE.B      88(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A10,D3
+     0042  0C43 000A                   CMPI.W      #10,D3
+     0046  6776                        BEQ.B       Escape_4
+     0048  7E00                        MOVEQ.L     #0,D7
+     004A  1E28 0056                   MOVE.B      86(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A9,D7
+     004E  3D47 FFFE                   MOVE.W      D7,-2(A6)..Spill locn
+     0052  0C47 0009                   CMPI.W      #9,D7
+     0056  6766                        BEQ.B       Escape_4
+     0058  7C00                        MOVEQ.L     #0,D6
+     005A  1C28 0054                   MOVE.B      84(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A8,D6
+     005E  0C46 0008                   CMPI.W      #8,D6
+     0062  675A                        BEQ.B       Escape_4
+     0064  7A00                        MOVEQ.L     #0,D5
+     0066  1A28 0052                   MOVE.B      82(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A7,D5
+     006A  0C45 0007                   CMPI.W      #7,D5
+     006E  674E                        BEQ.B       Escape_4
+     0070  7800                        MOVEQ.L     #0,D4
+     0072  1828 0050                   MOVE.B      80(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A6,D4
+     0076  0C44 0006                   CMPI.W      #6,D4
+     007A  6742                        BEQ.B       Escape_4
+     007C  7000                        MOVEQ.L     #0,D0
+     007E  1028 004E                   MOVE.B      78(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A5,D0
+     0082  0C40 0005                   CMPI.W      #5,D0
+     0086  6736                        BEQ.B       Escape_4
+     0088  7400                        MOVEQ.L     #0,D2
+     008A  1428 004C                   MOVE.B      76(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A4,D2
+     008E  0C42 0004                   CMPI.W      #4,D2
+     0092  672A                        BEQ.B       Escape_4
+     0094  7000                        MOVEQ.L     #0,D0
+     0096  1028 004A                   MOVE.B      74(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A3,D0
+     009A  0C40 0003                   CMPI.W      #3,D0
+     009E  671E                        BEQ.B       Escape_4
+     00A0  7200                        MOVEQ.L     #0,D1
+     00A2  1228 0046                   MOVE.B      70(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A1,D1
+     00A6  0C41 0001                   CMPI.W      #1,D1
+     00AA  6712                        BEQ.B       Escape_4
+     00AC  7E00                        MOVEQ.L     #0,D7
+     00AE  1E28 0048                   MOVE.B      72(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A2,D7
+     00B2  0C47 0002                   CMPI.W      #2,D7
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   4
+01                                                               8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+     00B6  6706                        BEQ.B       Escape_4
+     00B8  422E FFFD                   CLR.B       -3(A6)..Spill locn
+     00BC  6006                        BRA.B       RFE_9
+                                   Escape_4:
+     00BE  1D7C 0001 FFFD              MOVE.B      #1,-3(A6)..Spill locn
+                                   RFE_9:
+     00C4  7200                        MOVEQ.L     #0,D1
+     00C6  1228 0060                   MOVE.B      96(A0)..ADA$TFSSTODP_STORE_HANDLER_$.A14,D1
+     00CA  0C41 000E                   CMPI.W      #14,D1
+     00CE  57C1                        SEQ.B       D1
+     00D0  4401                        NEG.B       D1
+     00D2  822E FFFD                   OR.B        -3(A6)..Spill locn,D1
+     00D6  1141 0045                   MOVE.B      D1,69(A0)..ADA$TFSSTODP_STORE_HANDLER_$.BOOL_1
+
+Line 47
+     00DA  1142 006E                   MOVE.B      D2,110(A0)..ADA$TFSSTODP_STORE_HANDLER_$.OUT_1
+
+Line 55
+     00DE  0C6E 0009 FFFE              CMPI.W      #9,-2(A6)..Spill locn
+     00E4  6740                        BEQ.B       Escape_6
+     00E6  0C46 0008                   CMPI.W      #8,D6
+     00EA  673A                        BEQ.B       Escape_6
+     00EC  0C45 0007                   CMPI.W      #7,D5
+     00F0  6734                        BEQ.B       Escape_6
+     00F2  0C44 0006                   CMPI.W      #6,D4
+     00F6  672E                        BEQ.B       Escape_6
+     00F8  7200                        MOVEQ.L     #0,D1
+     00FA  1228 0064                   MOVE.B      100(A0)..ADA$TFSSTODP_STORE_HANDLER_$.B5,D1
+     00FE  0C41 0005                   CMPI.W      #5,D1
+     0102  6722                        BEQ.B       Escape_6
+     0104  0C42 0004                   CMPI.W      #4,D2
+     0108  671C                        BEQ.B       Escape_6
+     010A  0C40 0003                   CMPI.W      #3,D0
+     010E  6716                        BEQ.B       Escape_6
+     0110  7200                        MOVEQ.L     #0,D1
+     0112  1228 0062                   MOVE.B      98(A0)..ADA$TFSSTODP_STORE_HANDLER_$.B1,D1
+     0116  0C41 0001                   CMPI.W      #1,D1
+     011A  670A                        BEQ.B       Escape_6
+     011C  0C47 0002                   CMPI.W      #2,D7
+     0120  6704                        BEQ.B       Escape_6
+     0122  7800                        MOVEQ.L     #0,D4
+     0124  6002                        BRA.B       RFE_10
+                                   Escape_6:
+     0126  7801                        MOVEQ.L     #1,D4
+                                   RFE_10:
+     0128  0C43 000A                   CMPI.W      #10,D3
+     012C  57C1                        SEQ.B       D1
+     012E  4401                        NEG.B       D1
+     0130  8204                        OR.B        D4,D1
+     0132  1141 0047                   MOVE.B      D1,71(A0)..ADA$TFSSTODP_STORE_HANDLER_$.BOOL_2
+
+Line 76
+     0136  1142 0070                   MOVE.B      D2,112(A0)..ADA$TFSSTODP_STORE_HANDLER_$.OUT_2
+
+Line 83
+     013A  7200                        MOVEQ.L     #0,D1
+     013C  1228 0066                   MOVE.B      102(A0)..ADA$TFSSTODP_STORE_HANDLER_$.C1,D1
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   5
+01                                                               8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+     0140  0C41 0001                   CMPI.W      #1,D1
+     0144  57C1                        SEQ.B       D1
+     0146  4401                        NEG.B       D1
+     0148  0C47 0002                   CMPI.W      #2,D7
+     014C  57C2                        SEQ.B       D2
+     014E  4402                        NEG.B       D2
+     0150  8401                        OR.B        D1,D2
+     0152  0C40 0003                   CMPI.W      #3,D0
+     0156  57C0                        SEQ.B       D0
+     0158  4400                        NEG.B       D0
+     015A  8002                        OR.B        D2,D0
+     015C  7400                        MOVEQ.L     #0,D2
+     015E  1428 0068                   MOVE.B      104(A0)..ADA$TFSSTODP_STORE_HANDLER_$.C4,D2
+     0162  0C42 0004                   CMPI.W      #4,D2
+     0166  57C1                        SEQ.B       D1
+     0168  4401                        NEG.B       D1
+     016A  8200                        OR.B        D0,D1
+     016C  1141 0049                   MOVE.B      D1,73(A0)..ADA$TFSSTODP_STORE_HANDLER_$.BOOL_3
+
+Line 92
+     0170  1142 0072                   MOVE.B      D2,114(A0)..ADA$TFSSTODP_STORE_HANDLER_$.OUT_3
+
+Line 99
+     0174  7000                        MOVEQ.L     #0,D0
+     0176  1028 006A                   MOVE.B      106(A0)..ADA$TFSSTODP_STORE_HANDLER_$.D1,D0
+     017A  0C40 0001                   CMPI.W      #1,D0
+     017E  57C0                        SEQ.B       D0
+     0180  4400                        NEG.B       D0
+     0182  0C47 0002                   CMPI.W      #2,D7
+     0186  57C1                        SEQ.B       D1
+     0188  4401                        NEG.B       D1
+     018A  8200                        OR.B        D0,D1
+     018C  7400                        MOVEQ.L     #0,D2
+     018E  1428 006C                   MOVE.B      108(A0)..ADA$TFSSTODP_STORE_HANDLER_$.D3,D2
+     0192  0C42 0003                   CMPI.W      #3,D2
+     0196  57C0                        SEQ.B       D0
+     0198  4400                        NEG.B       D0
+     019A  8001                        OR.B        D1,D0
+     019C  1140 004B                   MOVE.B      D0,75(A0)..ADA$TFSSTODP_STORE_HANDLER_$.BOOL_4
+
+Line 106
+     01A0  1142 0074                   MOVE.B      D2,116(A0)..ADA$TFSSTODP_STORE_HANDLER_$.OUT_4
+
+Line 110
+                                   TFSGCIA_Gen_of_CLAWS_Id$EXIT_LABEL27:
+     01A4  4E5E                        UNLK        A6
+     01A6  4E75                        RTS  
+
+  111 	--> ROUTINE_END TFSSTOAP_Store_Handler.TFSGCIA_Gen_of_CLAWS_Id
+
+
+Module segment and routine sizes :
+
+       Hexadecimal Decimal    Name
+       000001A8    424        ADA$TFSSTOAP_STORE_HANDLER.TFSGCIA_GEN_OF_CLAWS_ID$.$CODE
+       0000023C    572        ADA$TFSSTOAP_STORE_HANDLER.TFSGCIA_GEN_OF_CLAWS_ID$.$DEBUG
+       000001A8    424        TFSGCIA_GEN_OF_CLAWS_ID__3901
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   6
+01                                                               8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+
+
+%ADAC-I-CL_ADDED, Procedure body TFSSTOAP_STORE_HANDLER.TFSGCIA_GEN_OF_CLAWS_ID added to library 
+        DISK$EFA_GE3:[BEDA151.SRC.ACT.OUT.LIBRARY.ADALIB]
+
+
+PORTABILITY SUMMARY
+
+	There are no uses of potentially nonportable constructs
+
+
+
+
+
+TFSGCIA_Gen_of_CLAWS_Id                                          8-May-2017 10:05:19    XD Ada V1.2A-33                     Page   7
+01              Ada Compilation Statistics                       8-May-2017 10:02:16    TFSSTOAP_TFSGCIA.ADA;1                   (1)
+
+COMMAND QUALIFIERS
+
+  XDADA [BEDA151.SRC.ACT.SOURCE]TFSSTOAP_TFSGCIA.ADA/OPTIMIZE=(TIME,INLINE:NORMAL,MOTION:NONE)/NOCHECK/DEBUG/LIB=[.-.OUT.LIBRARY.ADALIB]/LOAD/LIST=[BEDA151.SRC.ACT.OUT.LISTING]/MACHINE_CODE=(SYMBOLIC:MAXIMAL)/WARNINGS=(WEAK:NONE)/ERROR_LIMIT=60
+
+
+QUALIFIERS USED
+        /NOANALYSIS_DATA/NOCHECK/COPY_SOURCE/DEBUG=ALL/ERROR_LIMIT=60/LIST/MACHINE=(SYMBOLIC=MAXIMAL)
+        /NODIAGNOSTICS/LIBRARY=[.-.OUT.LIBRARY.ADALIB]
+        /LOAD=REPLACE/NOTE_SOURCE/OPTIMIZE=(TIME,INLINE=NORMAL,SHARE=NONE,MOTION=NONE)/SHOW=PORTABILITY/NOSYNTAX_ONLY
+        /WARNINGS=(NOCOMPILATION_NOTES,STATUS=LIST,SUPPLEMENTAL=ALL,WARNINGS=ALL,NOWEAK_WARNINGS)
+
+
+COMPILER INTERNAL TIMING
+
+	Phase                         CPU     Elapsed    Page     I/O
+	                            seconds   seconds   faults   count
+  Initialization                      0.02      0.04      717      28
+  Parser                              0.02      0.02      482       1
+  Static semantics                    0.04      0.04      819       0
+  IL generation                       0.02      0.02      778      10
+  Code generation                     0.06      0.06     1823       1
+      Expand                          0.00      0.00       82       0
+      Optimize                        0.02      0.02      306       0
+      Flattener                       0.00      0.00      391       0
+      Register Allocation             0.02      0.02      713       1
+      Final Assembly                  0.02      0.02      393       3
+  Listing generation                  0.00      0.00       68       5
+  Compilation library                 0.04      0.06     2348      42
+  Collect analysis data               0.00      0.00        5       0
+  Compiler totals                     0.20      0.24     6909      86
+
+
+COMPILATION STATISTICS
+
+  Weak warnings:	     0
+  Warnings:		     0
+  Errors:		     0
+
+  Peak working set:	  1663
+  Virtual pages used:	 13239
+  Virtual pages free:	******
+  CPU Time:		 00:00:00.20	(33300 Lines/Minute)
+  Elapsed Time:		 00:00:00.24
+  Compilation Complete

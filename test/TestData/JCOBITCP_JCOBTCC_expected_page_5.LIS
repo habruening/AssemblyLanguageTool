@@ -1,0 +1,8 @@
+JCOBTCC_BIT_Test_Controller                                     28-Apr-2017 14:57:43    XD Ada V1.2A-33                     Page   6
+01                                                              28-Apr-2017 14:54:46    JCOBITCP_JCOBTCC.ADA;1                   (1)
+
+     0070  6000 02B6                   BRA.W       ENDIF_8
+                                   ELSE_15:
+
+Line 98
+     0074  1D79 *0000000 FFFF          MOVE.B      LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA,-1(A6)..CPU_FAILURE$PA

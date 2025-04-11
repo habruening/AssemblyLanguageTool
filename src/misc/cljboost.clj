@@ -12,3 +12,6 @@
     ([x y & more]
      (reduce minfunc (minfunc x y) more))))
 
+(defn implies [a b]
+  (or (not a) b))
+

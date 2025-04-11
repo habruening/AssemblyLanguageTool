@@ -1,0 +1,60 @@
+JCOBTCC_BIT_Test_Controller                                     28-Apr-2017 14:57:43    XD Ada V1.2A-33                     Page   5
+01                                                              28-Apr-2017 14:54:46    JCOBITCP_JCOBTCC.ADA;1                   (1)
+
+  227 	end JCOBTCC_BIT_Test_Controller;
+
+Line 70
+                                   JCOBTCC_BIT_TEST_CONTROLLER__301:
+     0000  2F7C *0000000 0004          MOVE.L      #ADA$$RUN_TIME_SYSTEM_$.EH$_UNHANDLED,4(A7)
+     0008  4E56 FFEC                   LINK.W      A6,#-20
+                                   JCOBTCC_BIT_TEST_CONTROLLER__301$SECONDARY:
+
+Line 77
+     000C  4A39 *0000000               TST.B       CL1TIP.L..ADA$GMPDSTCP_COMMON_DATASTORE_$.CL1TIP
+     0012  6700 032C                   BEQ.W       ELSE_5
+
+Line 80
+     0016  4A39 *0000000               TST.B       ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.$DATA+4.L..ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.GSYWAI
+C_B010
+     001C  670A                        BEQ.B       ELSE_7
+
+Line 83
+     001E  4EB9 *0000000               JSR         GSYRSTC__ENT.L
+     0024  6000 0320                   BRA.W       JCOBTCC_BIT_Test_Controller$EXIT_LABEL39
+                                   ELSE_7:
+
+Line 86
+     0028  7000                        MOVEQ.L     #0,D0
+     002A  3039 *0000000               MOVE.W      ATESTNO.L..ADA$GMPDSTCP_COMMON_DATASTORE_$.ATESTNO,D0
+     0030  3D40 FFFC                   MOVE.W      D0,-4(A6)..AUTO_CURRENT_TEST_NUMBER
+
+Line 88
+     0034  13FC 0001 *0000000          MOVE.B      #1,LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
+
+Line 91
+     003C  7000                        MOVEQ.L     #0,D0
+     003E  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+     0042  7E06                        MOVEQ.L     #6,D7
+     0044  B087                        CMP.L       D7,D0
+     0046  6C00 0138                   BGE.W       ELSE_9
+
+Line 92
+     004A  7000                        MOVEQ.L     #0,D0
+     004C  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+     0050  7E04                        MOVEQ.L     #4,D7
+     0052  B087                        CMP.L       D7,D0
+     0054  6C00 00DE                   BGE.W       ELSE_11
+
+Line 93
+     0058  7000                        MOVEQ.L     #0,D0
+     005A  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+     005E  7E02                        MOVEQ.L     #2,D7
+     0060  B087                        CMP.L       D7,D0
+     0062  6C30                        BGE.B       ELSE_13
+
+Line 95
+     0064  4A6E FFFC                   TST.W       -4(A6)..AUTO_CURRENT_TEST_NUMBER
+     0068  660A                        BNE.B       ELSE_15
+
+Line 96
+     006A  4239 *0000000               CLR.B       LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA

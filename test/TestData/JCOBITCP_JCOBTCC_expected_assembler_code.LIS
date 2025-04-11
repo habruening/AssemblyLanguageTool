@@ -1,0 +1,132 @@
+5:    1 	--HEADER-FORMAT-IS
+6:    2 	--  [2.5]
+7:    3 	
+8:    4 	--MODULE-TYPE-IS
+9:    5 	--  [SOURCE]
+10:    6 	
+11:   56 	--END-OF-TEST-STATUS
+12:   57 	
+17:   58 	--MODULE-RELATIONS-ARE
+18:   59 	--END-OF-MODULE-RELATIONS
+19:   60 	
+20:   61 	--EOMD
+21:   62 	                        
+22:   63 	--------------------------------------------------------------------
+23:   64 	--  Procedure to control the BIT operational logic
+24:   65 	--------------------------------------------------------------------
+25:   66 	
+26:   67 	separate (JCOBITCP_CL1_BIT_Control)
+27:   68 	
+28:   69 	--> Routine_Start JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_Test_Controller
+29:  220 	      
+30:  221 	    end if;
+31:  222 	
+32:  223 	  else -- not CL1_Test_In_Progress
+33:  224 	    GSYFWACP_FCC_System_Waits.Test_In_Progress := FALSE;
+34:  225 	  end if;
+35:  226 	
+40:  227 	end JCOBTCC_BIT_Test_Controller;
+42:Line 70
+43:                                   JCOBTCC_BIT_TEST_CONTROLLER__301:
+44:     0000  2F7C *0000000 0004          MOVE.L      #ADA$$RUN_TIME_SYSTEM_$.EH$_UNHANDLED,4(A7)
+45:     0008  4E56 FFEC                   LINK.W      A6,#-20
+46:                                   JCOBTCC_BIT_TEST_CONTROLLER__301$SECONDARY:
+48:Line 77
+49:     000C  4A39 *0000000               TST.B       CL1TIP.L..ADA$GMPDSTCP_COMMON_DATASTORE_$.CL1TIP
+50:     0012  6700 032C                   BEQ.W       ELSE_5
+52:Line 80
+53,54:     0016  4A39 *0000000               TST.B       ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.$DATA+4.L..ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.GSYWAIC_B010
+55:     001C  670A                        BEQ.B       ELSE_7
+57:Line 83
+58:     001E  4EB9 *0000000               JSR         GSYRSTC__ENT.L
+59:     0024  6000 0320                   BRA.W       JCOBTCC_BIT_Test_Controller$EXIT_LABEL39
+60:                                   ELSE_7:
+62:Line 86
+63:     0028  7000                        MOVEQ.L     #0,D0
+64:     002A  3039 *0000000               MOVE.W      ATESTNO.L..ADA$GMPDSTCP_COMMON_DATASTORE_$.ATESTNO,D0
+65:     0030  3D40 FFFC                   MOVE.W      D0,-4(A6)..AUTO_CURRENT_TEST_NUMBER
+67:Line 88
+68:     0034  13FC 0001 *0000000          MOVE.B      #1,LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
+70:Line 91
+71:     003C  7000                        MOVEQ.L     #0,D0
+72:     003E  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+73:     0042  7E06                        MOVEQ.L     #6,D7
+74:     0044  B087                        CMP.L       D7,D0
+75:     0046  6C00 0138                   BGE.W       ELSE_9
+77:Line 92
+78:     004A  7000                        MOVEQ.L     #0,D0
+79:     004C  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+80:     0050  7E04                        MOVEQ.L     #4,D7
+81:     0052  B087                        CMP.L       D7,D0
+82:     0054  6C00 00DE                   BGE.W       ELSE_11
+84:Line 93
+85:     0058  7000                        MOVEQ.L     #0,D0
+86:     005A  302E FFFC                   MOVE.W      -4(A6)..AUTO_CURRENT_TEST_NUMBER,D0
+87:     005E  7E02                        MOVEQ.L     #2,D7
+88:     0060  B087                        CMP.L       D7,D0
+89:     0062  6C30                        BGE.B       ELSE_13
+91:Line 95
+92:     0064  4A6E FFFC                   TST.W       -4(A6)..AUTO_CURRENT_TEST_NUMBER
+93:     0068  660A                        BNE.B       ELSE_15
+95:Line 96
+96:     006A  4239 *0000000               CLR.B       LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
+101:     0070  6000 02B6                   BRA.W       ENDIF_8
+102:                                   ELSE_15:
+104:Line 98
+105,111:     0074  1D79 *0000000 FFFF          MOVE.B      LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
+112:     007C  102E FFFF                   MOVE.B      -1(A6)..CPU_FAILURE$PARAMETER_TEMP27,D0
+113:     0080  4EB9 *0000000               JSR         ADA$GBIPROCP_PROC_MODULE_$.GBICPUC_IBIT_CPU__101.L
+114:     0086  1D40 FFFF                   MOVE.B      D0,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
+115:     008A  13C0 *0000000               MOVE.B      D0,LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
+116:     0090  6000 0296                   BRA.W       ENDIF_8
+117:                                   ELSE_13:
+120:Line 224
+121,122:     0340  4239 *0000000               CLR.B       ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.$DATA+4.L..ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.GSYWAIC_B010
+124:Line 227
+125:                                   JCOBTCC_BIT_Test_Controller$EXIT_LABEL39:
+126:     0346  4E5E                        UNLK        A6
+127:     0348  4E75                        RTS  
+129:  228 	--> Routine_End JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_Test_Controller
+132:Module segment and routine sizes :
+134:       Hexadecimal Decimal    Name
+135:       0000034A    842        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$CODE
+136:       000002BE    702        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$DEBUG
+137:       0000034A    842        JCOBTCC_BIT_TEST_CONTROLLER__301
+140:%ADAC-I-CL_ADDED, Procedure body JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER added to library 
+141:        DISK$EFA_GE3:[PADA106.SRC.CL1.OUT.LIBRARY.ADALIB]
+144:PORTABILITY SUMMARY
+146:	There are no uses of potentially nonportable constructs
+155:COMMAND QUALIFIERS
+157:  XDADA [PADA106.SRC.CL1.SOURCE]JCOBITCP_JCOBTCC.ADA/OPTIMIZE=(NONE,INLINE:NORMAL)/NOCHECK/DEBUG/LIB=[.-.OUT.LIBRARY.ADALIB]/LOAD/LIST=[PADA106.SRC.CL1.OUT.LISTING]/MACHINE_CODE=(SYMBOLIC:MAXIMAL)/WARNINGS=(WEAK:NONE)/ERROR_LIMIT=60
+160:QUALIFIERS USED
+161:        /NOANALYSIS_DATA/NOCHECK/COPY_SOURCE/DEBUG=ALL/ERROR_LIMIT=60/LIST/MACHINE=(SYMBOLIC=MAXIMAL)
+162:        /NODIAGNOSTICS/LIBRARY=[.-.OUT.LIBRARY.ADALIB]
+163:        /LOAD=REPLACE/NOTE_SOURCE/OPTIMIZE=(NONE,INLINE=NORMAL,SHARE=NONE,MOTION=NONE)/SHOW=PORTABILITY/NOSYNTAX_ONLY
+164:        /WARNINGS=(NOCOMPILATION_NOTES,STATUS=LIST,SUPPLEMENTAL=ALL,WARNINGS=ALL,NOWEAK_WARNINGS)
+167:COMPILER INTERNAL TIMING
+169:	Phase                         CPU     Elapsed    Page     I/O
+170:	                            seconds   seconds   faults   count
+171:  Initialization                      0.02      0.04      725      52
+172:  Parser                              0.02      0.02      517       1
+173:  Static semantics                    0.02      0.04      878      10
+174:  IL generation                       0.02      0.02     1179      10
+175:  Code generation                     0.05      0.06     1561       3
+176:      Expand                          0.00      0.00      106       0
+177:      Optimize                        0.00      0.00       19       0
+178:      Flattener                       0.02      0.02      395       0
+179:      Register Allocation             0.01      0.02      630       3
+180:      Final Assembly                  0.02      0.02      493       3
+181:  Listing generation                  0.02      0.02       88       9
+182:  Compilation library                 0.13      0.16     2836     134
+183:  Collect analysis data               0.00      0.00        5       0
+184:  Compiler totals                     0.28      0.36     7616     216
+187:COMPILATION STATISTICS
+189:  Weak warnings:	     0
+190:  Warnings:		     0
+191:  Errors:		     0
+193:  Peak working set:	  2413
+194:  Virtual pages used:	 14007
+195:  Virtual pages free:	******
+196:  CPU Time:		 00:00:00.28	(48857 Lines/Minute)
+197:  Elapsed Time:		 00:00:00.36
+198:  Compilation Complete

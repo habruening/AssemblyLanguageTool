@@ -1,0 +1,18 @@
+1: Line  1, LF
+2: Line  2, CR
+3: Line  3, CR+LF
+4: Line  4, CR+CR
+5: 
+6: Line  6, LF+LF
+7: 
+8: Line  8, LF+CR
+9: 
+10: Line 10, FF
+11: Line 10, FF+LF
+12: Line 11, FF+CR
+13: Line 12, FF+CR+LF
+14: Line 13, FF+LF+CR
+15: 
+16: Line 15, CR+LF+FF+CR+LF
+17: 
+18: Line 17 
