@@ -1,7 +1,6 @@
 JCOBTCC_BIT_Test_Controller                                     28-Apr-2017 14:57:43    XD Ada V1.2A-33                     Page   6
 01                                                              28-Apr-2017 14:54:46    JCOBITCP_JCOBTCC.ADA;1                   (1)
 
-
 RAMETER_TEMP27
      007C  102E FFFF                   MOVE.B      -1(A6)..CPU_FAILURE$PARAMETER_TEMP27,D0
      0080  4EB9 *0000000               JSR         ADA$GBIPROCP_PROC_MODULE_$.GBICPUC_IBIT_CPU__101.L

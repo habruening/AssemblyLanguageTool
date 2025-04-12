@@ -73,60 +73,60 @@
 101:     0070  6000 02B6                   BRA.W       ENDIF_8
 102:                                   ELSE_15:
 104:Line 98
-105,111:     0074  1D79 *0000000 FFFF          MOVE.B      LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
-112:     007C  102E FFFF                   MOVE.B      -1(A6)..CPU_FAILURE$PARAMETER_TEMP27,D0
-113:     0080  4EB9 *0000000               JSR         ADA$GBIPROCP_PROC_MODULE_$.GBICPUC_IBIT_CPU__101.L
-114:     0086  1D40 FFFF                   MOVE.B      D0,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
-115:     008A  13C0 *0000000               MOVE.B      D0,LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
-116:     0090  6000 0296                   BRA.W       ENDIF_8
-117:                                   ELSE_13:
-120:Line 224
-121,122:     0340  4239 *0000000               CLR.B       ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.$DATA+4.L..ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.GSYWAIC_B010
-124:Line 227
-125:                                   JCOBTCC_BIT_Test_Controller$EXIT_LABEL39:
-126:     0346  4E5E                        UNLK        A6
-127:     0348  4E75                        RTS  
-129:  228 	--> Routine_End JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_Test_Controller
-132:Module segment and routine sizes :
-134:       Hexadecimal Decimal    Name
-135:       0000034A    842        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$CODE
-136:       000002BE    702        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$DEBUG
-137:       0000034A    842        JCOBTCC_BIT_TEST_CONTROLLER__301
-140:%ADAC-I-CL_ADDED, Procedure body JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER added to library 
-141:        DISK$EFA_GE3:[PADA106.SRC.CL1.OUT.LIBRARY.ADALIB]
-144:PORTABILITY SUMMARY
-146:	There are no uses of potentially nonportable constructs
-155:COMMAND QUALIFIERS
-157:  XDADA [PADA106.SRC.CL1.SOURCE]JCOBITCP_JCOBTCC.ADA/OPTIMIZE=(NONE,INLINE:NORMAL)/NOCHECK/DEBUG/LIB=[.-.OUT.LIBRARY.ADALIB]/LOAD/LIST=[PADA106.SRC.CL1.OUT.LISTING]/MACHINE_CODE=(SYMBOLIC:MAXIMAL)/WARNINGS=(WEAK:NONE)/ERROR_LIMIT=60
-160:QUALIFIERS USED
-161:        /NOANALYSIS_DATA/NOCHECK/COPY_SOURCE/DEBUG=ALL/ERROR_LIMIT=60/LIST/MACHINE=(SYMBOLIC=MAXIMAL)
-162:        /NODIAGNOSTICS/LIBRARY=[.-.OUT.LIBRARY.ADALIB]
-163:        /LOAD=REPLACE/NOTE_SOURCE/OPTIMIZE=(NONE,INLINE=NORMAL,SHARE=NONE,MOTION=NONE)/SHOW=PORTABILITY/NOSYNTAX_ONLY
-164:        /WARNINGS=(NOCOMPILATION_NOTES,STATUS=LIST,SUPPLEMENTAL=ALL,WARNINGS=ALL,NOWEAK_WARNINGS)
-167:COMPILER INTERNAL TIMING
-169:	Phase                         CPU     Elapsed    Page     I/O
-170:	                            seconds   seconds   faults   count
-171:  Initialization                      0.02      0.04      725      52
-172:  Parser                              0.02      0.02      517       1
-173:  Static semantics                    0.02      0.04      878      10
-174:  IL generation                       0.02      0.02     1179      10
-175:  Code generation                     0.05      0.06     1561       3
-176:      Expand                          0.00      0.00      106       0
-177:      Optimize                        0.00      0.00       19       0
-178:      Flattener                       0.02      0.02      395       0
-179:      Register Allocation             0.01      0.02      630       3
-180:      Final Assembly                  0.02      0.02      493       3
-181:  Listing generation                  0.02      0.02       88       9
-182:  Compilation library                 0.13      0.16     2836     134
-183:  Collect analysis data               0.00      0.00        5       0
-184:  Compiler totals                     0.28      0.36     7616     216
-187:COMPILATION STATISTICS
-189:  Weak warnings:	     0
-190:  Warnings:		     0
-191:  Errors:		     0
-193:  Peak working set:	  2413
-194:  Virtual pages used:	 14007
-195:  Virtual pages free:	******
-196:  CPU Time:		 00:00:00.28	(48857 Lines/Minute)
-197:  Elapsed Time:		 00:00:00.36
-198:  Compilation Complete
+105,110:     0074  1D79 *0000000 FFFF          MOVE.B      LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
+111:     007C  102E FFFF                   MOVE.B      -1(A6)..CPU_FAILURE$PARAMETER_TEMP27,D0
+112:     0080  4EB9 *0000000               JSR         ADA$GBIPROCP_PROC_MODULE_$.GBICPUC_IBIT_CPU__101.L
+113:     0086  1D40 FFFF                   MOVE.B      D0,-1(A6)..CPU_FAILURE$PARAMETER_TEMP27
+114:     008A  13C0 *0000000               MOVE.B      D0,LAST_TEST_FA.L..ADA$JCOBITCP_CL1_BIT_CONTROL$.LAST_TEST_FA
+115:     0090  6000 0296                   BRA.W       ENDIF_8
+116:                                   ELSE_13:
+117:Line 224
+120,122:     0340  4239 *0000000               CLR.B       ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.$DATA+4.L..ADA$GSYFWACP_FCC_SYSTEM_WAITS_$.GSYWAIC_B010
+121:Line 227
+124:                                   JCOBTCC_BIT_Test_Controller$EXIT_LABEL39:
+125:     0346  4E5E                        UNLK        A6
+126:     0348  4E75                        RTS  
+127:  228 	--> Routine_End JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_Test_Controller
+129:Module segment and routine sizes :
+132:       Hexadecimal Decimal    Name
+134:       0000034A    842        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$CODE
+135:       000002BE    702        ADA$JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER$.$DEBUG
+136:       0000034A    842        JCOBTCC_BIT_TEST_CONTROLLER__301
+137:%ADAC-I-CL_ADDED, Procedure body JCOBITCP_CL1_BIT_CONTROL.JCOBTCC_BIT_TEST_CONTROLLER added to library 
+140:        DISK$EFA_GE3:[PADA106.SRC.CL1.OUT.LIBRARY.ADALIB]
+141:PORTABILITY SUMMARY
+144:	There are no uses of potentially nonportable constructs
+146:COMMAND QUALIFIERS
+155:  XDADA [PADA106.SRC.CL1.SOURCE]JCOBITCP_JCOBTCC.ADA/OPTIMIZE=(NONE,INLINE:NORMAL)/NOCHECK/DEBUG/LIB=[.-.OUT.LIBRARY.ADALIB]/LOAD/LIST=[PADA106.SRC.CL1.OUT.LISTING]/MACHINE_CODE=(SYMBOLIC:MAXIMAL)/WARNINGS=(WEAK:NONE)/ERROR_LIMIT=60
+157:QUALIFIERS USED
+160:        /NOANALYSIS_DATA/NOCHECK/COPY_SOURCE/DEBUG=ALL/ERROR_LIMIT=60/LIST/MACHINE=(SYMBOLIC=MAXIMAL)
+161:        /NODIAGNOSTICS/LIBRARY=[.-.OUT.LIBRARY.ADALIB]
+162:        /LOAD=REPLACE/NOTE_SOURCE/OPTIMIZE=(NONE,INLINE=NORMAL,SHARE=NONE,MOTION=NONE)/SHOW=PORTABILITY/NOSYNTAX_ONLY
+163:        /WARNINGS=(NOCOMPILATION_NOTES,STATUS=LIST,SUPPLEMENTAL=ALL,WARNINGS=ALL,NOWEAK_WARNINGS)
+164:COMPILER INTERNAL TIMING
+167:	Phase                         CPU     Elapsed    Page     I/O
+169:	                            seconds   seconds   faults   count
+170:  Initialization                      0.02      0.04      725      52
+171:  Parser                              0.02      0.02      517       1
+172:  Static semantics                    0.02      0.04      878      10
+173:  IL generation                       0.02      0.02     1179      10
+174:  Code generation                     0.05      0.06     1561       3
+175:      Expand                          0.00      0.00      106       0
+176:      Optimize                        0.00      0.00       19       0
+177:      Flattener                       0.02      0.02      395       0
+178:      Register Allocation             0.01      0.02      630       3
+179:      Final Assembly                  0.02      0.02      493       3
+180:  Listing generation                  0.02      0.02       88       9
+181:  Compilation library                 0.13      0.16     2836     134
+182:  Collect analysis data               0.00      0.00        5       0
+183:  Compiler totals                     0.28      0.36     7616     216
+184:COMPILATION STATISTICS
+187:  Weak warnings:	     0
+189:  Warnings:		     0
+190:  Errors:		     0
+191:  Peak working set:	  2413
+193:  Virtual pages used:	 14007
+194:  Virtual pages free:	******
+195:  CPU Time:		 00:00:00.28	(48857 Lines/Minute)
+196:  Elapsed Time:		 00:00:00.36
+197:  Compilation Complete
