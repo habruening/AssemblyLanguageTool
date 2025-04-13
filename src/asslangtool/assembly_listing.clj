@@ -16,7 +16,7 @@
            (<= 40 (mstr/count line))
            (= (mstr/->JString (mstr/subs line 9 11)) "  ")
            (re-find #"^[0-9A-F]+$" (mstr/->JString (mstr/subs line 5 9))))
-    {:checkspace (mstr/subs line 1 4)
+    {:checkspace (mstr/subs line 0 5)
      :address (mstr/subs line 5 9)
      :opcode (mstr/subs line 11 39)
      :mnemonic (mstr/subs line 39 51)
