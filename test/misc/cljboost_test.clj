@@ -1,17 +1,20 @@
 (ns misc.cljboost-test
-  (:use midje.sweet)
-  (:require [misc.cljboost]))
+  (:require [clojure.test :refer :all]
+            [misc.cljboost :refer :all]
+            [misc.testboost :refer :all]))
 
-(facts
- ((as-max-function <) 3 4 2 4 4 5 3) => 5
- ((as-min-function <) 3 4 2 4 4 5 3) => 2)
+(testing "`as-max-function`"
+  (protocol
+   ((as-max-function <) 3 4 2 4 4 5 3) => 5
+   ((as-min-function <) 3 4 2 4 4 5 3) => 2)
 
-(fact
- (let [longer #(< (count %1) (count %2))
-       longest (as-max-function longer)]
-   (longest "A" "B" "CD" "E")) => "CD")
 
-(fact
- (let [longer #(< (count %1) (count %2))
-       longest (as-min-function longer)]
-   (longest "AB" "C" "DE")) => "C")
+  (let [longer #(< (count %1) (count %2))
+        longest (as-max-function longer)]
+    (protocol
+     (longest "A" "B" "CD" "E") => "CD"))
+
+  (let [longer #(< (count %1) (count %2))
+        longest (as-min-function longer)]
+    (protocol
+     (longest "AB" "C" "DE") => "C")))

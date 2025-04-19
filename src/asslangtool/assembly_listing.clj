@@ -1,11 +1,6 @@
 (ns asslangtool.assembly-listing
-  (:require [misc.mstring :as mstr]))
-
-(comment
-  #{:address
-   :opcode
-   :mnemonic
-   :arguments})
+  (:require [misc.mstring :as mstr]
+            [misc.cljboost :refer :all]))
 
 (defn parse-label [line]
   (if-let [label (re-find #"^                                   ([a-zA-Z0-9_$]+): *$" (mstr/->JString line))] 
@@ -27,7 +22,7 @@
           (fn [[{labels :labels code :code :as result} labels-before-line :as cont] line]
             (if-let [parsed (or (parse-label line) (parse-instruction line))]
               (if (:opcode parsed)
-                (let [address (read-string (str "0x" (mstr/->JString (:address parsed))))]
+                (let [address (-> parsed :address mstr/->JString (Integer/parseInt 16))]
                   [{:labels (reduce #(assoc %1 (mstr/->JString %2) address) labels labels-before-line)
                     :code (assoc code address parsed)}
                    #{}])
@@ -36,5 +31,3 @@
           [{:labels {} :code {}} #{}]
           lines)))
 
-
- 

@@ -6,5 +6,7 @@
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [org.clojure/tools.logging "1.3.0"]
                  [org.clojure/core.async "1.8.741"]]
-  :profiles {:dev {:dependencies []}}
-  :repl-options {:init-ns asslangtool.core})
+  :main ^:skip-aot asslangtool.core 
+  :profiles {:uberjar {:aot [asslangtool.core]
+                       :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}} 
+  )
