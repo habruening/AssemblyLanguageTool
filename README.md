@@ -61,6 +61,12 @@ Now you can type the tracing into the nc window. For example
 ````
 After each instruction you can open the file test.lis and see how the coverage progresses.
 
+## Status
+
+Very experimental!
+
+No errors or exceptions are captured, at all.
+
 ## License
 
 This program and the accompanying materials are made available under the
