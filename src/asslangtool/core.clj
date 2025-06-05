@@ -43,5 +43,5 @@
         (recur (<!! from-recorder))))))
 
 (comment
-  (-main "127.0.0.1" "7777" "3000" "3050" "2" "test.lis")
+  (-main "127.0.0.1" "7777" "0x3000" "0x3020" "2" "test.lis")
   )

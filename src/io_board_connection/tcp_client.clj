@@ -36,7 +36,7 @@
 ;                                           .    |  Loader  |<------|  Binary  |<---------|   Code   |
 ;                                           .    |----------|       |----------|          |----------|
 
-(defn- wait-for-ok [get-from-io-board]
+#_(defn- wait-for-ok [get-from-io-board]
   (while (if-let [from-io-board (get-from-io-board)]
            (not (= from-io-board "OK")))))
 
@@ -50,11 +50,15 @@
             [:terminated :connection-error]
             (= from-io-board "DONE")
             [:terminated :tracing-done]
-            :else
-            (let [[from to to-be-nil] (clojure.string/split from-io-board #"->")]
-              (if (not (and from to (nil? to-be-nil)))
-                [:terminated :invalid-data]
-                [:running [(parse-int from) (parse-int to)]]))))
+            :else 
+            (let [[from to to-be-nil] (clojure.string/split from-io-board #" ")]
+              (println from-io-board from to to-be-nil)
+              (cond (and from to (nil? to-be-nil))
+                    [:running [(parse-int (str "0x" from)) (parse-int (str "0x" to))]]
+                    (and from (nil? to))
+                    [:running [(parse-int (str "0x" from)) (parse-int (str "0x" from))]]
+                    :else
+                    [:terminated :invalid-data]))))
     (catch Exception e
       [:terminated :receiver-exception])))
 
@@ -66,9 +70,9 @@
         socket (Socket. host port)
         writer (PrintWriter. (.getOutputStream socket) true)
         reader (BufferedReader. (InputStreamReader. (.getInputStream socket)))]
-    (wait-for-ok #(.readLine reader))
+    #_(wait-for-ok #(.readLine reader))
     (.println writer (str "TRACE FROM " trace-start-addr " TO " trace-end-addr))
-    (wait-for-ok #(.readLine reader))
+    #_(wait-for-ok #(.readLine reader))
     (a/thread (loop [[connection-state received-value] (receive #(.readLine reader))]
                 (>!! to-trace-recorder received-value)
                 (if (= connection-state :terminated)
