@@ -42,6 +42,8 @@ where
 * 0x2 is the program entry point (relatively from 0x3000)
 * test.lis is a listing file that is automatically generated for testing purposes.
 
+This program will generate for you a simple listing file for testing purposes.
+
 7. Test the program
 
 Execute
@@ -65,7 +67,7 @@ After each instruction you can open the file test.lis and see how the coverage p
 
 Very experimental!
 
-No errors or exceptions are captured, at all.
+No errors or exceptions are captured, at all. That means, the program is very fragile.
 
 ## License
 
