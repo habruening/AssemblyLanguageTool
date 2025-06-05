@@ -4,7 +4,7 @@
             [misc.mstring :as mstr]
             [clojure.core.async :as a :refer [>!! <!!]]))
 
-(defn start-tracing [code at-address start-ip]
+(defn start-tracing [code at-address start-ip] 
   {:code (update-vals (code :code) #(assoc % :coverage #{}))
    :->relative-ip #(- % at-address)
    :current-ip (+ at-address start-ip)})

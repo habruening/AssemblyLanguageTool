@@ -31,3 +31,25 @@
           [{:labels {} :code {}} #{}]
           lines)))
 
+(defn listing-file-for-testing-purposes [start-address end-address]
+  (let [no-of-address-characters (count (format "%x" end-address))
+        address-format (str "%0" no-of-address-characters "x")
+        listing-file (->> (range start-address end-address)
+                          (map #(clojure.string/upper-case (format address-format %)))
+                          (map #(str "      " %))
+                          (clojure.string/join "\n"))
+        instruction-list (->> listing-file
+                              (mstr/split-lines)
+                              (reduce #(assoc %1
+                                              (Integer/parseInt (mstr/->JString (mstr/subs %2 6 (+ 6 no-of-address-characters))) 16)
+                                              {:checkspace (mstr/subs %2 0 5)
+                                               :mnemonic ""})
+                                      {}))]
+    [listing-file instruction-list]))
+
+(comment
+  (listing-file-for-testing-purposes 3000 3005)
+  )
+
+
+

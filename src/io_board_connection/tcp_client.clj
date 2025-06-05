@@ -80,7 +80,7 @@
     to-trace-recorder))
 
 (comment
-  (def c (connect-to-io-board "127.0.0.1" 12345 234 567))
+  (def c (connect-to-io-board "127.0.0.1" 7777 234 567))
 
   (<!! c)
   
