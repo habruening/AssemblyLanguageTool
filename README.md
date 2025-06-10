@@ -48,7 +48,7 @@ This program will generate for you a simple listing file for testing purposes.
 
 Execute
 ````
-nc -l -p 7777
+nc -4 -l -p 7777
 ````
 In parallel execute
 ````
@@ -56,10 +56,10 @@ java -jar target/asslangtool-0.1.0-SNAPSHOT-standalone.jar 127.0.0.1 7777 0x3000
 ````
 Now you can type the tracing into the nc window. For example
 ````
-> TRACE FROM 12288 TO 12544
-< 3010 3030
-< 3040 
-< DONE
+STARTED
+3010 3030
+3040 
+DONE
 ````
 After each instruction you can open the file test.lis and see how the coverage progresses.
 
