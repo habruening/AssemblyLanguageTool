@@ -45,12 +45,16 @@
 
 (defn- receive [get-from-io-board]
   (try
-    (let [from-io-board (get-from-io-board)]
+    (let [from-io-board (clojure.string/trim (get-from-io-board))]
       (cond (not from-io-board)
             [:terminated :connection-error]
+            (clojure.string/blank? from-io-board)
+            [:running nil]
+            (= from-io-board "STARTED")
+            [:running nil]
             (= from-io-board "DONE")
             [:terminated :tracing-done]
-            :else 
+            :else
             (let [[from to to-be-nil] (clojure.string/split from-io-board #" ")]
               (println from-io-board from to to-be-nil)
               (cond (and from to (nil? to-be-nil))
@@ -58,9 +62,9 @@
                     (and from (nil? to))
                     [:running [(parse-int (str "0x" from)) (parse-int (str "0x" from))]]
                     :else
-                    [:terminated :invalid-data]))))
+                    [:terminated :connection-error]))))
     (catch Exception e
-      [:terminated :receiver-exception])))
+      [:terminated :connection-error])))
 
 (comment
   (receive #(read-line)))
@@ -73,8 +77,8 @@
     #_(wait-for-ok #(.readLine reader))
     (.println writer (str "TRACE FROM " trace-start-addr " TO " trace-end-addr))
     #_(wait-for-ok #(.readLine reader))
-    (a/thread (loop [[connection-state received-value] (receive #(.readLine reader))]
-                (>!! to-trace-recorder received-value)
+    (a/thread (loop [[connection-state received-data] (receive #(.readLine reader))]
+                (if received-data (>!! to-trace-recorder received-data))
                 (if (= connection-state :terminated)
                   (a/close! to-trace-recorder)
                   (recur (receive #(.readLine reader)))))
