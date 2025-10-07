@@ -32,14 +32,13 @@ Now you get an executable jar file in target/asslangtool-0.1.0-SNAPSHOT-standalo
 
 6. Execute the program with
 ````
-java -jar target/asslangtool-0.1.0-SNAPSHOT-standalone.jar 127.0.0.1 7777 0x3000 0x3100 0x2 test.lis
+java -jar target/asslangtool-0.1.0-SNAPSHOT-standalone.jar 127.0.0.1 7777 0x3000 0x3100 test.lis
 ````
 
 where
 * 127.0.0.1 is the IP address of the tracer
 * 0x3000 is the starting address, where the listing is linked
 * 0x3100 is the end address
-* 0x2 is the program entry point (relatively from 0x3000)
 * test.lis is a listing file that is automatically generated for testing purposes.
 
 This program will generate for you a simple listing file for testing purposes.
@@ -52,7 +51,7 @@ nc -4 -l -p 7777
 ````
 In parallel execute
 ````
-java -jar target/asslangtool-0.1.0-SNAPSHOT-standalone.jar 127.0.0.1 7777 0x3000 0x3100 0x2 test.lis
+java -jar target/asslangtool-0.1.0-SNAPSHOT-standalone.jar 127.0.0.1 7777 0x3000 0x2 test.lis
 ````
 Now you can type the tracing into the nc window. For example
 ````
