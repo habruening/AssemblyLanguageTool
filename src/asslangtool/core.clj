@@ -25,7 +25,7 @@
               (asslangtool.coverage/coverage-report (slurp listing-file) coverage))
         (recur (<!! from-recorder)))))
 
-(defn -main [ip-address port first-address last-address start-ip output-file]
+(defn -main [ip-address port first-address last-address output-file]
 
   (let [from-tracer (io-board-connection.tcp-client/connect-to-io-board
                      ip-address
@@ -34,7 +34,7 @@
                      (read-string last-address))
         [listing-file assembly-lines] (asslangtool.assembly-listing/listing-file-for-testing-purposes 0 (- (read-string last-address) (read-string first-address)))
         from-recorder (-> {:code assembly-lines}
-                          (asslangtool.coverage/start-tracing (read-string first-address) (read-string start-ip))
+                          (asslangtool.coverage/start-tracing (read-string first-address))
                           (asslangtool.coverage/live-tracing from-tracer))]
     (loop [coverage (<!! from-recorder)]
       (when coverage 
@@ -43,5 +43,5 @@
         (recur (<!! from-recorder))))))
 
 (comment
-  (-main "127.0.0.1" "7777" "0x3000" "0x3020" "2" "test.lis")
+  (-main "127.0.0.1" "7777" "0x3000" "0x3020" "test.lis")
   )
